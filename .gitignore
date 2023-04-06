@@ -1,1 +1,9 @@
 /target
+
+# dir
+.vscode
+idea
+
+# file
+
+.DS_Store

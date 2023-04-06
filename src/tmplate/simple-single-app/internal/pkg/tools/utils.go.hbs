@@ -1,0 +1,21 @@
+package tools
+
+import (
+"bytes"
+"math/rand"
+"time"
+
+"github.com/spf13/viper"
+"{{ project_mod }}/internal/pkg/configs"
+)
+
+const randStr = "abcdefghijklmnopqrstuvwxyz"
+
+func RandomStr(length int) string {
+bytes := []byte(randStr)
+var suffix []byte
+rand.Seed(time.Now().UnixNano() + int64(rand.Intn(100)))
+for i := 0; i < length; i++ { suffix=append(suffix, bytes[rand.Intn(len(bytes))]) } result :="test" + string(suffix)
+	return result } func ReadConfig(data []byte) (*configs.Config, error) { v :=viper.New() v.SetConfigType("toml")
+	reader :=bytes.NewReader(data) err :=v.ReadConfig(reader) if err !=nil { return nil, err } cfg :=configs.NewConfig()
+	if err :=v.Unmarshal(cfg); err !=nil { return nil, err } return cfg, nil }

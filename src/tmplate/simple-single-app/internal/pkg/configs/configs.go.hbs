@@ -1,0 +1,14 @@
+package configs
+
+type Config struct {
+	App App `mapstructure:"app"`
+}
+
+type App struct {
+	Env      string `mapstructure:"env"`
+	LogLevel string `mapstructure:"log_level"`
+}
+
+func NewConfig() *Config {
+	return &Config{}
+}

@@ -1,0 +1,11 @@
+package app
+
+import (
+"{{ project_mod }}/internal/pkg/configs"
+"{{ project_mod }}/internal/pkg/initialization"
+)
+
+func Serve(cfg *configs.Config) {
+logger := initialization.Logger(cfg)
+logger.Info("Starting escrow-account-signature-demo...")
+}

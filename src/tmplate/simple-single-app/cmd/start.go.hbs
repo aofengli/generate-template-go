@@ -1,0 +1,46 @@
+package cmd
+
+import (
+"fmt"
+"os"
+
+"github.com/spf13/cobra"
+"{{ project_mod }}/internal/app"
+"{{ project_mod }}/internal/pkg/configs"
+"{{ project_mod }}/internal/pkg/tools"
+)
+
+var (
+localConfig string
+startCmd = &cobra.Command{
+Use: "start",
+Short: "start escrow-account-signature process",
+Run: func(cmd *cobra.Command, args []string) {
+online()
+},
+}
+)
+
+func init() {
+rootCmd.AddCommand(startCmd)
+startCmd.Flags().StringVarP(&localConfig, "CONFIG", "c", "", "config path: /opt/local.toml")
+}
+
+func online() {
+
+data, err := os.ReadFile(localConfig)
+if err != nil {
+fmt.Println("Error: get config data error: ", err)
+return
+}
+config, err := tools.ReadConfig(data)
+if err != nil {
+fmt.Println("Error: read config error: ", err)
+return
+}
+run(config)
+}
+
+func run(cfg *configs.Config) {
+app.Serve(cfg)
+}
